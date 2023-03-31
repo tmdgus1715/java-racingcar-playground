@@ -1,6 +1,6 @@
 package racingcargame.exception;
 
-public class DuplicateNameException extends Exception {
+public class DuplicateNameException extends RuntimeException {
 
 	public DuplicateNameException() {
 	}
