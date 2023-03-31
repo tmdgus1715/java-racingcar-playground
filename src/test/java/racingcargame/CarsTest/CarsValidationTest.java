@@ -1,4 +1,4 @@
-package racingcargame;
+package racingcargame.CarsTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -8,10 +8,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import racingcargame.Cars;
 import racingcargame.exception.DuplicateNameException;
 import racingcargame.exception.InvalidNameLengthException;
 
-public class CarsTest {
+public class CarsValidationTest {
 
 	@Test
 	@DisplayName("carNames가 null이면 NullPointerException이 발생한다.")
@@ -40,6 +41,6 @@ public class CarsTest {
 		"a,ab,abc,abcd,abcde,defgh,efghi:7"}, delimiter = ':')
 	public void carNames(String carNames, int expectedSize) {
 		Cars cars = new Cars(carNames);
-		assertThat(cars.getRacingCars().size()).isEqualTo(expectedSize);
+		assertThat(cars.getCars().size()).isEqualTo(expectedSize);
 	}
 }
