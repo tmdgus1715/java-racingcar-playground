@@ -75,13 +75,48 @@ Car :
 - [x] 모든 Car들 중에서 movement가 가장 높은 Car의 name을 반환한다.
 - [x] 모든 Car들 중 movement가 가장 높은 Car가 다수일 경우에는 모두 반환한다.
 
-**RacingCarGame**
-
-- [ ] init(String carNames)를 호출했을 때, carNames대로 Car들이 생성이 된다.
-- [ ] gameStart()를 호출했을 때, Cars가 반환된다.
-- [ ] findWinners를 호출했을 때, Car의 name이 담긴 List<String>이 반환된다.
-
 **RandomGenerator**
+
 * 랜덤값 자체에 대한 테스트는 라이브러리를 믿고 쓰는 것을 전제로 한다.
 - [x] 범위를 지정했을 때, 주어진 범위 내의 수를 생성한다.
+
+**RacingCarGame**
+
+- [x] init(String carNames)를 호출했을 때, carNames대로 Car들이 생성이 된다.
+- [x] result()를 호출했을 때, Car의 name이 담긴 List<String>이 반환된다.
+- [ ] gameStart()를 호출했을 때, Cars를 통해 Car를 전진시키는 메서드 호출 -->테스트작성 실패
+<br>
+
+ __현재 상황__ :
+  gameStart에서 Cars클래스의 tryMove를 호출 함. 이때 RacingCarGame클래스 내부에 있는 상수
+  RANDOM_NUMBER_MAX_BOUND와 RANDOM_NUMBER_MIN_BOUND를 인자로 전달 함.
+```
+@ParameterizedTest
+       @DisplayName("Cars들을 전진 할 수 있으면 전진시킨다.")
+       public void gameStartTest() {
+       RacingCarGame racingCarGame = new RacingCarGame();
+       racingCarGame.init("car1,car2,car3");
+       racingCarGame.gameStart();
+
+       Cars resultCars = racingCarGame.getRacingCars();
+       List<Car> cars = resultCars.getCars();
+
+       assertThat(cars.get(0).getMovement()).isEqualTo();
+       assertThat(cars.get(1).getMovement()).isEqualTo();
+       assertThat(cars.get(2).getMovement()).isEqualTo();
+       }
+
+```
+  __문제 상황__ :
+  Cars들의 전진을 확인 하는 테스트 gameStartTest()에서 racingCaarGame.gameStart();를 호출할 때 내부의 tryMove메서드를 위한
+  경계값을 주지 않으므로 랜덤 값에 대해 이를 확인하는 테스트를 짜기가 어려움.
+
+  __생각해본 해결책__ :
+    1. gameStart()에 경계값을 인자로 추가하여 gameStart(int min, int max)로 호출 함. min = 4, max = 9를 전달하면 확실히 전진함.
+       --> 이렇게 하면 Controller에서 gameStart를 호출할 때도 게임에 대한 정보인 경계값을 넘겨주어야 함. Controller는 사용자의 요청만
+       처리하고, 게임에 대한 정보는 모르게 하고 싶음.
+    2. while(racingCarGame.getRacingCars().getCars().get(0).getMovement == 1)으로 여러 번 gameStart를 호출함.
+       --> 종료조건이...
+       
+
 
