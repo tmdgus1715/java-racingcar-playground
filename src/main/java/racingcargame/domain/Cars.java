@@ -46,7 +46,18 @@ public class Cars {
 		);
 	}
 
-	public List<Car> getRacingCars() {
+	public List<Car> getCars() {
 		return cars;
+	}
+
+	public void tryMove(int min, int max) {
+		cars.forEach(car -> {
+				car.tryMove(min, max);
+			}
+		);
+	}
+
+	public List<String> findWinner() {
+		return null;
 	}
 }

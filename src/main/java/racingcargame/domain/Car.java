@@ -1,9 +1,9 @@
-package racingcargame;
+package racingcargame.domain;
 
 import racingcargame.utill.RandomGenerator;
 import racingcargame.utill.RandomUtill;
 
-public class Car {
+public class Car implements Comparable {
 
 	private final RandomUtill randomUtill = new RandomGenerator();
 	private final String name;
@@ -20,10 +20,23 @@ public class Car {
 	}
 
 	public int getMovement() {
-		return movement;
+		return this.movement;
 	}
 
 	private void move() {
 		++movement;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		Car car = (Car)o;
+		if (this.getMovement() > car.getMovement()) {
+			return 1;
+		}
+		return -1;
+	}
+
+	public String getName() {
+		return this.name;
 	}
 }
