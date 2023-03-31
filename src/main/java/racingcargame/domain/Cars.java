@@ -1,8 +1,9 @@
-package racingcargame;
+package racingcargame.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import racingcargame.exception.DuplicateNameException;
 import racingcargame.exception.InvalidNameLengthException;
 
@@ -46,10 +47,6 @@ public class Cars {
 		);
 	}
 
-	public List<Car> getCars() {
-		return cars;
-	}
-
 	public void tryMove(int min, int max) {
 		cars.forEach(car -> {
 				car.tryMove(min, max);
@@ -58,6 +55,27 @@ public class Cars {
 	}
 
 	public List<String> findWinner() {
-		return null;
+		Optional<Car> winnerCar = cars.stream().max(Car::compareTo);
+
+		int maxMovement = 0;
+		if (winnerCar.isPresent()) {
+			maxMovement = winnerCar.get().getMovement();
+		}
+
+		List<String> winners = new ArrayList<>();
+		for (Car car : cars) {
+			compareMovement(car, maxMovement, winners);
+		}
+		return winners;
+	}
+
+	public void compareMovement(Car car, int max, List<String> winners) {
+		if (car.getMovement() == max) {
+			winners.add(car.getName());
+		}
+	}
+
+	public List<Car> getCars() {
+		return cars;
 	}
 }
