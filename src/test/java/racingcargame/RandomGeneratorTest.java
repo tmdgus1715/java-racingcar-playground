@@ -1,5 +1,7 @@
 package racingcargame;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +17,7 @@ public class RandomGeneratorTest {
 	@CsvSource(value = {"0:9", "100:109", "1000:1009"}, delimiter = ':')
 	public void generate(int min, int max) {
 		RandomUtill randomGenerator = new RandomGenerator();
-		Assertions.assertThat(randomGenerator.generateRandomNumber(min, max)).isBetween(min, max);
+		assertThat(randomGenerator.generateRandomNumber(min, max)).isBetween(min, max);
 	}
 
 }
