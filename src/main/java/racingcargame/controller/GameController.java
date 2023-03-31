@@ -8,6 +8,7 @@ import racingcargame.view.OutputView;
 public class GameController {
 
 	public static final int COUNT_BOUNDARY = 0;
+
 	private final InputView inputView = new InputView();
 	private final OutputView outputView = new OutputView();
 

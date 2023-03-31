@@ -6,6 +6,7 @@ import racingcargame.utill.RandomUtill;
 public class Car implements Comparable {
 
 	public static final int MOVEMENTN_BOUNDARY = 3;
+
 	private final RandomUtill randomUtill = new RandomGenerator();
 	private final String name;
 
