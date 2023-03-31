@@ -9,13 +9,18 @@ import racingcargame.exception.InvalidNameLengthException;
 
 public class Cars {
 
+	public static final String CARNAME_SPLIT_DELIMITER = ",";
+	public static final int CARNAME_MIN_LENGTH = 1;
+	public static final int CARNAME_MAX_LENGTH = 5;
+	public static final int MAX_MOVEMENT_INIT = 0;
+
 	private List<Car> cars;
 
 	public Cars(String carNames) {
 		if (carNames == null) {
 			throw new NullPointerException();
 		}
-		String[] carNameTokens = carNames.split(",");
+		String[] carNameTokens = carNames.split(CARNAME_SPLIT_DELIMITER);
 
 		validateCarNameLength(carNameTokens);
 		validateDuplicateCarName(carNameTokens);
@@ -40,7 +45,7 @@ public class Cars {
 
 	private void validateCarNameLength(String[] carNameTokens) {
 		Arrays.stream(carNameTokens).forEach(carName -> {
-				if (carName.length() < 1 || carName.length() > 5) {
+				if (carName.length() < CARNAME_MIN_LENGTH || carName.length() > CARNAME_MAX_LENGTH) {
 					throw new InvalidNameLengthException();
 				}
 			}
@@ -57,7 +62,7 @@ public class Cars {
 	public List<String> findWinner() {
 		Optional<Car> winnerCar = cars.stream().max(Car::compareTo);
 
-		int maxMovement = 0;
+		int maxMovement = MAX_MOVEMENT_INIT;
 		if (winnerCar.isPresent()) {
 			maxMovement = winnerCar.get().getMovement();
 		}

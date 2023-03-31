@@ -5,16 +5,18 @@ import racingcargame.utill.RandomUtill;
 
 public class Car implements Comparable {
 
+	public static final int MOVEMENTN_BOUNDARY = 3;
 	private final RandomUtill randomUtill = new RandomGenerator();
 	private final String name;
-	private int movement = 0;
+
+	private int movement;
 
 	public Car(String carName) {
 		this.name = carName;
 	}
 
 	public void tryMove(int min, int max) {
-		if (randomUtill.generateRandomNumber(min, max) > 3) {
+		if (randomUtill.generateRandomNumber(min, max) > MOVEMENTN_BOUNDARY) {
 			move();
 		}
 	}
